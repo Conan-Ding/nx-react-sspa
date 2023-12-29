@@ -1,0 +1,35 @@
+{
+  "name": "create-react-sspa",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/create-react-sspa/bin",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/create-react-sspa",
+        "main": "packages/create-react-sspa/bin/index.ts",
+        "tsConfig": "packages/create-react-sspa/tsconfig.lib.json",
+        "assets": ["packages/create-react-sspa/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs create-react-sspa {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/create-react-sspa/jest.config.ts"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["react-sspa"]
+}
