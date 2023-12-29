@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ReactSingleSPANx",
+  "title": "React Single SPA Nx",
+  "type": "object",
+  "properties": {
+    "orgnization": {
+      "type": "string",
+      "description": "organization name, prefix for single spa microfrontend apps",
+      "$default": "ameripharma",
+      "x-prompt": "What organization name would you like to use?"
+    },
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What project name would you like to use?"
+    },
+    "projectNameAndRootFormat": {
+      "description": "Whether to generate the project name and root directory as provided (`as-provided`) or generate them composing their values and taking the configured layout into account (`derived`).",
+      "type": "string",
+      "enum": ["as-provided", "derived"],
+      "default": "derived",
+      "x-prompt": "How do you want to organize your project?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "A directory where the project is placed"
+    }
+  
+  }
+}
