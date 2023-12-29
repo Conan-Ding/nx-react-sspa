@@ -16,11 +16,10 @@ import {getReactSingleSPAProjectTargets} from './lib/get-react-single-spa-projec
 function addFiles(tree: Tree, options: NormalizedSchema) {
     const templateOptions = {
         ...options,
-        ...names(options.projectName),
         ...names(options.singleSPAOrg),
+        ...names(options.projectName),
         templ: '',   
     }
-    console.log(JSON.stringify(templateOptions))
     generateFiles(
         tree,
         joinPathFragments(__dirname, 'files'),
@@ -39,7 +38,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 * @return {ReturnValueDataTypeHere} Brief description of the returning value here.
 */
 export async function appGenerator(tree: Tree, schema: ReactSingleSpaNxGeneratorSchema):Promise<GeneratorCallback>  {
-    const options = await normalizeOptions(tree, schema);
+    const options:NormalizedSchema = await normalizeOptions(tree, schema);
     const tasks: GeneratorCallback[] = [];
     await jsInitGenerator(tree, {
         skipFormat: true,
