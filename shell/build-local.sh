@@ -3,7 +3,8 @@
 #prepare variables
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-FILE_TGZ="react-sspa.tgz"
+PROJECT_NAME="react-sspa"
+FILE_TGZ="nx-react-sspa.tgz"
 
 # remove extra files
 cd $PROJECT_ROOT
@@ -21,10 +22,10 @@ if [ -f ./${FILE_TGZ} ]; then
 fi
 
 # Build the project
-nx build react-sspa
+nx build $PROJECT_NAME
 
 # Pack the built project
-cd $PROJECT_ROOT/dist/packages/react-sspa
+cd $PROJECT_ROOT/dist/packages/$PROJECT_NAME
 yarn pack --filename ${FILE_TGZ}
 # Check if the tarball file is created
 if [ -f ./${FILE_TGZ} ]; then
@@ -33,9 +34,8 @@ else
     echo "Failed to create tarball file: ${FILE_TGZ}"
     exit 1
 fi
-echo "Current directory: $(pwd)"
 # Add the tarball file
-yarn add file:$PROJECT_ROOT/dist/packages/react-sspa/${FILE_TGZ}
+yarn add file:$PROJECT_ROOT/dist/packages/${PROJECT_NAME}/${FILE_TGZ}
 
 #clean up
-rm -rf $PROJECT_ROOT/dist/packages/react-sspa/${FILE_TGZ}
+rm -rf $PROJECT_ROOT/dist/packages/${PROJECT_NAME}/${FILE_TGZ}
