@@ -11,7 +11,7 @@ import {
   addDependenciesToPackageJson,
   removeDependenciesFromPackageJson,
 } from '@nx/devkit';
-import { reactDomVersion, reactVersion } from '@nx/react';
+import { reactDomVersion, reactVersion , tsLibVersion, nxVersion, typesNodeVersion, typesReactVersion, typesReactDomVersion, testingLibraryReactVersion} from './lib/versions';
 import { initGenerator, initGenerator as jsInitGenerator } from '@nx/js';
 import { ReactSingleSpaNxGeneratorSchema, NormalizedSchema , InitSchema} from './schema';
 import { normalizeOptions } from './lib/normalize-options';
@@ -48,8 +48,8 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 function updateDependencies(host: Tree, schema: InitSchema) {
     removeDependenciesFromPackageJson(host, ['@nx/react'], []);
 
-    // how do i determine the version of react, react-dom, etc to install?
-    // in original nx, there is a constance file, but I want to just use default react version from nx
+    // like origin code from nx js, I placed a versions.ts file in the lib
+    // this also means I have to update the code constantly in the future
     const dependencies = {
       react: reactVersion,
       'react-dom': reactDomVersion,
