@@ -16,6 +16,7 @@
     "@nx/jest": "17.2.8",
     "@nx/js": "17.2.8",
     "@nx/plugin": "17.2.8",
+    "@nx/react": "^17.2.8",
     "@nx/workspace": "17.2.8",
     "@swc-node/register": "~1.6.7",
     "@swc/cli": "~0.1.62",

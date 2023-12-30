@@ -43,6 +43,11 @@
       "default": false,
       "x-priority": "internal"
     },
+    "skipPackageJson": {
+      "description": "Do not add dependencies to `package.json`.",
+      "type": "boolean",
+      "default": false
+    },
     "compiler": {
       "type": "string",
       "description": "The compiler to use.",
