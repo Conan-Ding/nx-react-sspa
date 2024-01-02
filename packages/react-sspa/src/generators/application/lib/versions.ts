@@ -1,4 +1,4 @@
-export const nxVersion = require('../../package.json').version;
+export const nxVersion = require('../../../../package.json').version;
 
 // Always pull the latest version until we merge rspack plugin into the repo.
 export const nxRspackVersion = '*';

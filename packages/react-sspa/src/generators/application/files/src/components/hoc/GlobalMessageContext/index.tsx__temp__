@@ -1,0 +1,77 @@
+import React, { useEffect } from 'react';
+import { type PublishParams } from './types.ts';
+import { useDispatch } from 'react-redux';
+// in actual app, we should import the action creators from the redux store
+// also we should rename the action creators to avoid the name conflict
+// import {
+//   setListView,
+//   setGridView,
+// } from '../../../store/features/doctors/slice';
+const LOCAL_APP_NAME = 'app1';
+export type AllActions = 'setListView' | 'setGridView';
+interface IGlobalMessageContextProps {
+  useDispatchWithMessage?: (reduxAction: AllActions, value: any) => any;
+}
+interface IGlobalMessageContextProviderState extends IGlobalMessageContextProps {
+  children: React.ReactNode;
+}
+
+
+export const GlobalMessageContext =
+  React.createContext<IGlobalMessageContextProps | null>(null);
+
+export const GlobalMessageContextProvider: React.FC<
+  IGlobalMessageContextProviderState
+> = ({ children }) => {
+  const dispatch = useDispatch();
+  const messageBroker = window.messageBroker || {};
+  useEffect(() => {
+    // the message Broker is a
+    messageBroker.subscribe({
+      app: LOCAL_APP_NAME,
+      targetApp: 'app-header',
+      onMessage: (message: PublishParams) => {
+        const { channel, content } = message as {
+          channel: string;
+          content: any;
+        };
+        const { action, value } = content;
+        switch (action) {
+          case 'viewBy':
+            //TODO check current route, add logic to only make effects on the current route
+            // if (value === 'list') dispatch(setListView());
+            // else if (value === 'grid') dispatch(setGridView());
+            break;
+          default:
+            break;
+        }
+      }
+    });
+    return () => {
+      // TODO befoe leave, need to send a message or store information somewhere so when navigate back, we can restore the view mode
+      messageBroker.unsubscribe({
+        app: LOCAL_APP_NAME,
+        targetApp: 'app-header',
+      });
+    };
+  }, []);
+  // sending message and then dispatch the reducer function
+  const useDispatchWithMessage = (reduxAction: AllActions, value: any) => {
+    // const allActions = { 'setListView':setListView, 'setGridView':setGridView };
+    const allActions = {}
+    messageBroker.publish({
+      sender: LOCAL_APP_NAME,
+      channel: 'VIEW_MODE',
+      content: {
+        action: 'viewBy',
+        value,
+      }
+    })
+    return dispatch(allActions[reduxAction](value));
+  };
+  return (
+    <GlobalMessageContext.Provider value={{ useDispatchWithMessage }}>
+      {children}
+    </GlobalMessageContext.Provider>
+  );
+};

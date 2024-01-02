@@ -44,7 +44,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
     templateOptions
   );
 }
-//TODO fix this,
+//TODO fix this, need to get it run smmothly, also, need to get the correct directory for both package.json, and the project
 function updateDependencies(host: Tree, schema: InitSchema) {
     removeDependenciesFromPackageJson(host, ['@nx/react'], []);
 

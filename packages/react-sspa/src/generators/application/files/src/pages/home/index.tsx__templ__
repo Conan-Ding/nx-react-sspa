@@ -1,0 +1,30 @@
+import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
+// the mobx store is set in the host app
+import { toJS } from'mobx';
+
+export const Home: React.FC = () => {
+  const [remoteStore, setRemoteStore] = useState<any>(null);
+  const [remoteData, setRemoteData] = useState<any>(null);
+  useEffect(() => {
+    // please do not change the store name
+    import('host/CentralStore').then((module) => {
+      setRemoteStore(module.default);
+      setRemoteData(toJS(module.default).data);
+    });
+  }, [remoteData]);
+  return (
+    <div>
+      Welcome to Home Page, {remoteData ? remoteData.username : 'User'}
+      {/* <p>Inner Link</p>
+      <Link to="/app1/doctors">Doctors</Link>
+      <button onClick={() => {
+       remoteStore && remoteStore.setData({
+          username: 'Foo'
+        });;
+      }}>Set Username</button> */}
+    </div>
+  );
+};
+
+export default Home;

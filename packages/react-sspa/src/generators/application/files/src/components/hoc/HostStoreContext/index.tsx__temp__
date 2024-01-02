@@ -1,0 +1,9 @@
+import React from "react";
+
+export const HostStoreContext = React.createContext<any>(null);
+
+export const HostStoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    return (<HostStoreContext.Provider value={{}}>{children}</HostStoreContext.Provider>);
+}
+
+export default HostStoreContext;

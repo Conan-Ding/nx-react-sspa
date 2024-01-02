@@ -1,0 +1,11 @@
+declare global {
+  interface Window {
+    messageBroker: any; // Replace 'any' with the actual type of MessageBroker if available
+  }
+}
+
+export type PublishParams =  {
+  sender: string;
+  channel: string;
+  content: any;
+}
