@@ -9,7 +9,7 @@ import {
   import { Provider } from 'react-redux';
   import { store } from '../store';
   import { GlobalMessageContextProvider } from '../components/hoc/GlobalMessageContext/index';
-  const Home = React.lazy(() => import('../pages/home/index'));
+  const Home = React.lazy(() => import('../pages/home/index.tsx__templ__'));
   export const App: React.FC = () => {
     return (
       <Provider store={store}>

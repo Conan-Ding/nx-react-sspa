@@ -11,7 +11,7 @@ import {
   addDependenciesToPackageJson,
   removeDependenciesFromPackageJson,
 } from '@nx/devkit';
-import { reactDomVersion, reactVersion , tsLibVersion, nxVersion, typesNodeVersion, typesReactVersion, typesReactDomVersion, testingLibraryReactVersion} from './lib/versions';
+import { reactDomVersion, reactVersion , tsLibVersion, nxVersion, typesNodeVersion, typesReactVersion, typesReactDomVersion, testingLibraryReactVersion, reactRouterDomVersion, reactReduxVersion} from './lib/versions';
 import { initGenerator, initGenerator as jsInitGenerator } from '@nx/js';
 import { ReactSingleSpaNxGeneratorSchema, NormalizedSchema , InitSchema} from './schema';
 import { normalizeOptions } from './lib/normalize-options';
@@ -53,13 +53,16 @@ function updateDependencies(host: Tree, schema: InitSchema) {
     const dependencies = {
       react: reactVersion,
       'react-dom': reactDomVersion,
+      'react-router-dom':reactRouterDomVersion,
+      'react-redux':reactReduxVersion
     };
   
     if (!schema.skipHelperLibs) {
       dependencies['tslib'] = tsLibVersion;
     }
-  
+    console.log('updateDependencies: add dependencies');
     return addDependenciesToPackageJson(host, dependencies, {
+      '@nx/eslint': nxVersion,
       '@nx/react': nxVersion,
       '@types/node': typesNodeVersion,
       '@types/react': typesReactVersion,
@@ -108,6 +111,7 @@ export async function appGenerator(
     })
   );
   if (!schema.skipPackageJson) {
+    console.log('update package');
     const installTask = updateDependencies(tree, schema);
     tasks.push(installTask);
   }

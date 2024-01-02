@@ -4,6 +4,17 @@
   "title": "",
   "type": "object",
   "properties": {
+    "organization": {
+      "type": "string",
+      "description": "organization name, prefix for single spa microfrontend apps",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What organization name would you like to use?",
+      "x-priority": "important",
+      "pattern": "^[a-zA-Z][^:]*$"
+    },
     "name": {
       "type": "string",
       "description": "",
@@ -11,7 +22,12 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "What project name would you like to use?"
+    },
+    "standalone": {
+      "type": "boolean",
+      "description": "Generate a standalone project",
+      "default": false
     }
   },
   "required": ["name"]

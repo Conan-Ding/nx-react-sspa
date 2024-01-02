@@ -35,7 +35,8 @@
     "projectNameAndRootFormat": {
       "description": "Whether to generate the project name and root directory as provided (`as-provided`) or generate them composing their values and taking the configured layout into account (`derived`).",
       "type": "string",
-      "enum": ["as-provided", "derived"]
+      "enum": ["as-provided", "derived"],
+      "default": "derived"
     },
     "skipFormat": {
       "description": "Skip formatting files.",
@@ -46,7 +47,8 @@
     "skipPackageJson": {
       "description": "Do not add dependencies to `package.json`.",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "x-priority": "internal"
     },
     "compiler": {
       "type": "string",
@@ -63,7 +65,7 @@
     "bundler": {
       "description": "The bundler to use.",
       "type": "string",
-      "enum": ["webpack"],
+      "enum": ["vite", "webpack", "rspack"],
       "x-prompt": "Which bundler do you want to use to build the application?",
       "default": "webpack",
       "x-priority": "important"

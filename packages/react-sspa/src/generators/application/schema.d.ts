@@ -24,4 +24,5 @@ export interface NormalizedSchema extends ReactSingleSpaNxGeneratorSchema{
     projectNameAndRootFormat: ProjectNameAndRootFormat;
     rootTsConfigPath: string;
     offsetFromRoot: string;
+    skipPackageJson: boolean;
 }
